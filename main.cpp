@@ -85,6 +85,8 @@ int main() {
     testvec.push_back(0);
     assert(m3[0] == testvec);
     assert(m3[1] == testvec);
+    
+    m3 = reshapeVector(m3, 4,1);
 
     cout << "works" << endl;
     return 0;

@@ -177,4 +177,26 @@ std::vector<std::vector<T> > matrixSigmoid(std::vector<std::vector<T> > a, T pow
         }
     }
 }
+template <typename T>
+std::vector<std::vector<T> > reshapeVector(std::vector<std::vector<T> > a, int r, int c)
+{
+    std::vector<T> flattenedVector;
+    std::vector<std::vector<T> > reshaped(r, std::vector<T>(c,0));
+    for (unsigned i = 0; i < a.size(); i++)
+    {
+        for (unsigned j =0; j<a[0].size(); j++)
+        {
+            flattenedVector.push_back(a[i][j]);
+        }
+    }
+    int z = 0;
+    for (unsigned i=0; i<reshaped.size(); i++)
+    {
+        for (unsigned j =0; j<reshaped[0].size(); j++)
+        {
+            reshaped[i][j] = flattenedVector[z++];
+        }
+    }
+    return reshaped;
+}
 #endif /* matrixMultiplication_h */
