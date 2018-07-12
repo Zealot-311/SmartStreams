@@ -10,60 +10,82 @@
 #include "matrix.h"
 #include <cassert>
 using namespace std;
-int main(int argc, const char * argv[]) {
+int main() {
     std::vector<std::vector<int> > m1;
     vector<int> testvec;
     std::vector<int> x(2,0);
     int k=0;
     for (int j=0; j<2; j++)
     {
-        for (int i=0;i<2; i++)
+        for (unsigned i=0;i<2; i++)
         {
             x[i] = k++;
         }
         m1.push_back(x);
     }
-    
-    testvec = {0,1};
+    testvec.clear();
+    testvec.push_back(0);
+    testvec.push_back(1);
     assert(m1[0] == testvec);
-    testvec = {2,3};
+    testvec.clear();
+    testvec.push_back(2);
+    testvec.push_back(3);
     assert(m1[1] == testvec);
-    
+
     std::vector<std::vector<int> > m3 = matrixMax(m1, int(3));
-    testvec = {3,3};
+    testvec.clear();
+    testvec.push_back(3);
+    testvec.push_back(3);
     assert(m3[0] == testvec);
-    testvec = {3,3};
     assert(m3[1]==testvec);
     
-    
     m3 = matrixPower(m1, int(2));
-    testvec = {0,1};
+    testvec.clear();
+    testvec.push_back(0);
+    testvec.push_back(1);
     assert(m3[0] == testvec);
-    testvec = {4,9};
+    testvec.clear();
+    testvec.push_back(4);
+    testvec.push_back(9);
     assert(m3[1] == testvec);
-    
+
     m3 = matrixMultiplication(m1, m3);
-    testvec = {4,9};
+    testvec.clear();
+    testvec.push_back(4);
+    testvec.push_back(9);
     assert(m3[0] == testvec);
-    testvec = {12,29};
+    testvec.clear();
+    testvec.push_back(12);
+    testvec.push_back(29);
     assert(m3[1] == testvec);
-    
+   
     m3 = scalarMultiplication(m1, int(3));
-    testvec = {0,3};
+    testvec.clear();
+    testvec.push_back(0);
+    testvec.push_back(3);
     assert(m3[0] == testvec);
-    testvec = {6,9};
+    testvec.clear();
+    testvec.push_back(6);
+    testvec.push_back(9);
     assert(m3[1] == testvec);
     
     m3 = pairwiseAddition(m1, m3);
-    testvec = {0, 4};
+    testvec.clear();
+    testvec.push_back(0);
+    testvec.push_back(4);
     assert(m3[0] == testvec);
-    testvec ={8,12};
+    testvec.clear();
+    testvec.push_back(8);
+    testvec.push_back(12);
     assert(m3[1] == testvec);
-    
+
     m3 = pairwiseSubtraction(m1, m1);
-    testvec = {0,0};
+    testvec.clear();
+    testvec.push_back(0);
+    testvec.push_back(0);
     assert(m3[0] == testvec);
     assert(m3[1] == testvec);
-    
+
+    cout << "works" << endl;
     return 0;
 }
