@@ -1,81 +1,95 @@
 #include <stdexcept>
 #include <math.h>
-using namespace SPL;
+#include <string>
+#include <sstream>
+#include <iostream>
+#include <map>
+using namespace std;
 
-const float 
 template <typename T>
 class relu
 {
 public:
 	relu();
 	~relu();
-	void init(string name = "relu"){
-		this.name = name;
-		this.params = SPL::map<T,T>();
-		this.grads = SPL::map<T,T>();
-		this.meta = NULL;
-		this.grads[this.name] = NULL;
+	std::string name;
+	std::map<T,T> params;
+	std::map<T,T> grads;
+	std::vector<T> meta;
+
+	void init(std::string name = "relu"){
+		name = name;
+		params = NULL;
+		grads = NULL;
+		meta = NULL;
+		grads[name] = NULL;
 	};
-	SPL::list<T> forward(T feat){
+	std::vector<T> forward(T feat){
 		T output = NULL;
 		output = util_max(feat, 0);
-		this.meta = feat;
+		meta = feat;
 		return output;
 	};
 
-	SPL::list<T> backward(T dprev){
-		feat = this.meta;
+	std::vector<T> backward(T dprev){
+		std::vector<T> feat = meta;
 		try {
 			if (feat == NULL){
 				throw 1;
 			};
-		};
-		catch(1){
+		}
+		catch(int i){
 			cout << "No forward function called before for this module!";
 		};
-		dfeat = NULL;
-		feat = this.meta;
-		//TODO: maybe take this out??
+		std::vector<T> dfeat = NULL;
+		feat = meta;
+		//TODO: maybe take this
 		feat = util_div(util_max(feat,0), feat);
 		dfeat = util_mult(dprev, feat);
-		this.meta = NULL;
+		meta = NULL;
 		return dfeat;
 	};
 };
-
+template <typename T>
 class sigmoid
 {
 public:
 	sigmoid();
 	~sigmoid();
+
+	std::string name;
+	std::map<T,T> params;
+	std::map<T,T> grads;
+	std::vector<T> meta;
+	
 	void init(string name = "sigmoid"){
-		this.name = name;
-		this.params = SPL::map<T,T>();
-		this.grads = SPL::map<T,T>();
-		this.meta = NULL;
-		this.grads[this.name] = NULL;
+		name = name;
+		params = NULL;
+		grads = NULL;
+		meta = NULL;
+		grads[name] = NULL;
 	};
-	SPL::list<T> forward(T feat){
+	std::vector<T> forward(T feat){
 		T output = NULL;
 		output = util_sigmoid(feat);
-		this.meta = feat;
+		meta = feat;
 		return output;
 	};
-	SPL::list<T> forward(T dprev){
-		feat = this.meta;
+	std::vector<T> backward(T dprev){
+		std::vector<T> feat = meta;
 		try {
 			if (feat == NULL){
 				throw 1;
 			};
-		};
-		catch(1){
+		}
+		catch(int i){
 			cout << "No forward function called before for this module!";
 		};
-		dfeat = NULL;
-		feat = this.meta;
+		std::vector<T> dfeat = NULL;
+		feat = meta;
 		feat = util_div(util_sigmoid(feat), feat);
 		dfeat = util_mult(dprev, feat);
-		this.meta = NULL;
+		meta = NULL;
 		return dfeat;
 	};
 };
