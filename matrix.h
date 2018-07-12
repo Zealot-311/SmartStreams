@@ -199,4 +199,53 @@ std::vector<std::vector<T> > reshapeVector(std::vector<std::vector<T> > a, int r
     }
     return reshaped;
 }
+template <typename T>
+std::vector<T> sumAcrossAxis(std::vector<std::vector<T> > a, int axis)
+{
+    std::vector<T> summedVector;
+    if (axis ==1)
+    {
+        //rows stay the same
+        for (unsigned i=0; i<a.size(); i++)
+        {
+            T val=0;
+            for (unsigned j=0; j<a[0].size(); j++)
+            {
+                val += a[i][j];
+            }
+            summedVector.push_back(val);
+        }
+    }
+    else
+    {
+        //columns stay the same
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            T val=0;
+            for (unsigned i=0; i<a.size(); i++)
+            {
+                val += a[i][j];
+            }
+            summedVector.push_back(val);
+        }
+        
+    }
+    return summedVector;
+}
+template <typename T>
+std::vector<std::vector<T> >matrixTranspose(std::vector<std::vector<T> > a)
+{
+    //rows to columns columns to rows
+    
+    //create new empty vec
+    std::vector<std::vector<T> > transposedVec(a[0].size(), std::vector<T>(a.size(),0));
+    for (unsigned i=0; i<a.size(); i++)
+    {
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            transposedVec[j][i] = a[i][j];
+        }
+    }
+    return transposedVec;
+}
 #endif /* matrixMultiplication_h */

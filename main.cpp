@@ -86,7 +86,11 @@ int main() {
     assert(m3[0] == testvec);
     assert(m3[1] == testvec);
     
-    m3 = reshapeVector(m3, 4,1);
+    //m3 = reshapeVector(m3, 4,1);
+    testvec = sumAcrossAxis(m1, 0);
+    testvec = sumAcrossAxis(m1, 1);
+    
+    m3 = matrixTranspose(m1);
 
     cout << "works" << endl;
     return 0;
