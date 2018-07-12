@@ -11,91 +11,16 @@
 #ifndef matrixMultiplication_h
 #define matrixMultiplication_h
 
-//multiplies two matrices
-template <typename T>
-class matrix
-{
-    int rows = 0;
-    int columns = 0;
-public:
-    std::vector<std::vector<T>> data;
-    
-    matrix()
-    {
-        //useless default contstuctor
-    }
-    matrix(int r, int c)
-    {
-        std::vector<T> dummyVal(r,0);
-        for(int i=0; i<c; i++)
-        {
-            addRow(dummyVal);
-        }
-        columns = c;
-    }
-    int getRows()
-    {
-        return rows;
-    }
-    void setRows(int r)
-    {
-        rows = r;
-    }
-    void setColumns(int c)
-    {
-        columns = c;
-    }
-    int getColumns()
-    {
-        return columns;
-    }
-    void addRow(std::vector<T> rowData)
-    {
-        data.push_back(rowData);
-        rows++;
-        columns = int(rowData.size());
-    }
 
-    //contructor that creates a matrix by multiplying 2 others
-    matrix(matrix a, matrix b)
-    {
-        rows = a.getRows();
-        columns = b.getColumns();
-        //first make sure you can multiply them
-        if (a.columns != b.rows)
-        {
-            std::cout<< "can't multiply/n";
-            return;
-        }
-        //fill data with dummy values
-        std::vector<T> dummyVal(rows,0);
-        for (int i=0; i<columns; i++)
-        {
-            data.push_back(dummyVal);
-        }
-        
-        for (int i=0; i<rows; i++)
-        {
-            for(int j=0; j<columns; j++)
-            {
-                for (int k =0; k<a.getColumns(); k++)
-                {
-                    data[i][j] += a.data[i][k] + b.data[k][j];
-                }
-            }
-        }
-        
-    }
-};
 
 template <typename T>
-matrix<T> matrixMultiplication(matrix<T> a, matrix<T> b)
+std::vector<std::vector<T> > matrixMultiplication(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
 {
-    matrix<T> c;
-    int rows = a.getRows();
-    int columns = b.getColumns();
+    std::vector<std::vector<T> > c;
+    int rows = int(a.size());
+    int columns = int(b[0].size());
     //first make sure you can multiply them
-    if (a.getColumns() != b.getRows())
+    if (a[0].size() != b.size())
     {
         std::cout<< "can't multiply/n";
         return c;
@@ -104,16 +29,16 @@ matrix<T> matrixMultiplication(matrix<T> a, matrix<T> b)
     std::vector<T> dummyVal(rows,0);
     for (int i=0; i<columns; i++)
     {
-        c.data.push_back(dummyVal);
+        c.push_back(dummyVal);
     }
     
     for (int i=0; i<rows; i++)
     {
         for(int j=0; j<columns; j++)
         {
-            for (int k =0; k<a.getColumns(); k++)
+            for (int k =0; k<a[0].size(); k++)
             {
-                c.data[i][j] += a.data[i][k] * b.data[k][j];
+                c[i][j] += a[i][k] * b[k][j];
             }
         }
     }
@@ -121,66 +46,68 @@ matrix<T> matrixMultiplication(matrix<T> a, matrix<T> b)
 }
 
 template <typename T>
-matrix<T> pairwiseAddition(matrix<T> a, matrix<T> b)
+std::vector<std::vector<T> > pairwiseAddition(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
 {
-    matrix<T> c(a.getRows(), a.getColumns());
-    if ( (a.getRows() != b.getRows()) || (a.getColumns() != b.getColumns()) )
+    
+    std::vector<std::vector<T> > c(int(a.size()), std::vector<int>(int(a[0].size()), 0));
+    if ( (a.size() != b.size()) || (a[0].size() != b[0].size()) )
     {
         std::cout<<"matrix rows and column counts not equal/n";
         return c;
     }
-    for (int i=0; i<c.getRows(); i++)
+    for (int i=0; i<int(c.size()); i++)
     {
-        for (int j=0; j<c.getColumns(); j++)
+        for (int j=0; j<c[0].size(); j++)
         {
-            c.data[i][j] = a.data[i][j] + b.data[i][j];
+            c[i][j] = a[i][j] + b[i][j];
         }
     }
     return c;
 }
 
 template <typename T>
-matrix<T> pairwiseSubtraction(matrix<T> a, matrix<T> b)
+std::vector<std::vector<T> > pairwiseSubtraction(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
 {
-    matrix<T> c(a.getRows(), a.getColumns());
-    if ( (a.getRows() != b.getRows()) || (a.getColumns() != b.getColumns()) )
+    std::vector<std::vector<T> > c(int(a.size()), std::vector<int>(int(a[0].size()), 0));
+    if ( (a.size() != b.size()) || (a[0].size() != b[0].size()) )
     {
         std::cout<<"matrix rows and column counts not equal/n";
         return c;
     }
-    for (int i=0; i<c.getRows(); i++)
+    for (int i=0; i<int(c.size()); i++)
     {
-        for (int j=0; j<c.getColumns(); j++)
+        for (int j=0; j<c[0].size(); j++)
         {
-            c.data[i][j] = a.data[i][j] - b.data[i][j];
+            c[i][j] = a[i][j] - b[i][j];
         }
     }
     return c;
 }
 
 template <typename T>
-matrix<T> scalarMultiplication(matrix<T> a, T scalar)
+std::vector<std::vector<T> > scalarMultiplication(std::vector<std::vector<T> > a, T scalar)
 {
-    for(int i=0; i<a.getRows(); i++)
+    int columns = int(a[0].size());
+    for(int i=0; i<a.size(); i++)
     {
-        for(int j=0;j<a.getColumns();j++)
+        for(int j=0;j<columns;j++)
         {
-            a.data[i][j] = a.data[i][j] * scalar;
+            a[i][j] = a[i][j] * scalar;
         }
     }
     return a;
 }
 
 template <typename T>
-matrix<T> matrixMax(matrix<T> a, T max)
+std::vector<std::vector<T> > matrixMax(std::vector<std::vector<T> > a, T max)
 {
-    for (int i=0; i<a.getRows(); i++)
+    for (int i=0; i<a.size(); i++)
     {
-        for (int j=0; j<a.getColumns(); j++)
+        for (int j=0; j<a[0].size(); j++)
         {
-            if (a.data[i][j] < max)
+            if (a[i][j] < max)
             {
-                a.data[i][j] = max;
+                a[i][j] = max;
             }
         }
     }
@@ -188,59 +115,59 @@ matrix<T> matrixMax(matrix<T> a, T max)
 }
 
 template <typename T>
-matrix<T> matrixPower(matrix<T> a, T power)
+std::vector<std::vector<T> > matrixPower(std::vector<std::vector<T> > a, T power)
 {
 
-    for (int i=0; i<a.getRows(); i++)
+    for (int i=0; i<a.size(); i++)
     {
-        for (int j=0; j<a.getColumns(); j++)
+        for (int j=0; j<a[0].size(); j++)
         {
-            a.data[i][j] = std::pow(a.data[i][j], power);
+            a[i][j] = std::pow(a[i][j], power);
         }
     }
     return a;
 }
 
 template <typename T>
-matrix<T> pairwiseDivision(matrix<T> a, matrix<T> b)
+std::vector<std::vector<T> > pairwiseDivision(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
 {
-    matrix<T> c(a.getRows(), a.getColumns());
-    if ( (a.getRows() != b.getRows()) || (a.getColumns() != b.getColumns()) )
+    std::vector<std::vector<T> > c(int(a.size()), std::vector<int>(int(a[0].size()), 0));
+    if ( (a.size() != b.size()) || (a[0].size() != b[0].size()) )
     {
         std::cout<<"matrix rows and column counts not equal/n";
         return c;
     }
-    for (int i=0; i<c.getRows(); i++)
+    for (int i=0; i<int(c.size()); i++)
     {
-        for (int j=0; j<c.getColumns(); j++)
+        for (int j=0; j<c[0].size(); j++)
         {
-            c.data[i][j] = a.data[i][j] / b.data[i][j];
+            c[i][j] = a[i][j] / b[i][j];
         }
     }
     return c;
 }
 
 template <typename T>
-matrix<T> pairwiseMultiplication(matrix<T> a, matrix<T> b)
+std::vector<std::vector<T> > pairwiseMultiplication(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
 {
-    matrix<T> c(a.getRows(), a.getColumns());
-    if ( (a.getRows() != b.getRows()) || (a.getColumns() != b.getColumns()) )
+    std::vector<std::vector<T> > c(int(a.size()), std::vector<int>(int(a[0].size()), 0));
+    if ( (a.size() != b.size()) || (a[0].size() != b[0].size()) )
     {
         std::cout<<"matrix rows and column counts not equal/n";
         return c;
     }
-    for (int i=0; i<c.getRows(); i++)
+    for (int i=0; i<int(c.size()); i++)
     {
-        for (int j=0; j<c.getColumns(); j++)
+        for (int j=0; j<c[0].size(); j++)
         {
-            c.data[i][j] = a.data[i][j] * b.data[i][j];
+            c[i][j] = a[i][j] * b[i][j];
         }
     }
     return c;
 }
 
 template <typename T>
-matrix<T> matrixSigmoid(matrix<T> a, T power)
+std::vector<std::vector<T> > matrixSigmoid(std::vector<std::vector<T> > a, T power)
 {
     //flipping the sign
     power = power - power - power;
