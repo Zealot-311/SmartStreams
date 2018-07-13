@@ -14,6 +14,46 @@
 #define matrixMultiplication_h
 
 template <typename T>
+std::vector<T> maxAcrossAxis(std::vector<std::vector<T> > a, int axis)
+{
+    std::vector<T> summedVector;
+    if (axis ==1)
+    {
+        //rows stay the same
+        for (unsigned i=0; i<a.size(); i++)
+        {
+            T max= a[i][0];
+            for (unsigned j=0; j<a[0].size(); j++)
+            {
+                if (a[i][j] > max)
+                {
+                    max = a[i][j];
+                }
+            }
+            summedVector.push_back(max);
+        }
+    }
+    else
+    {
+        //columns stay the same
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            T max=a[0][j];
+            for (unsigned i=0; i<a.size(); i++)
+            {
+                if (a[i][j] > max)
+                {
+                    max = a[i][j];
+                }
+            }
+            summedVector.push_back(max);
+        }
+        
+    }
+    return summedVector;
+}
+
+template <typename T>
 std::vector<std::vector<T> > matrixNaturalLog(std::vector<std::vector<T> > a)
 {
     for (unsigned i =0; i< a.size(); i++)
