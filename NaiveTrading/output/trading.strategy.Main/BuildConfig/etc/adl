@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<applicationSet xmlns="http://www.ibm.com/xmlns/prod/streams/application/v4200" name="trading.strategy::Main.appset" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <description>trading.strategy::Main application set</description>
+
+  <splApplication adlPath="BuildConfig/trading.strategy.Main.adl" applicationDirectory="toolkits/NaiveTrading" applicationScope="Default" avoidRuntimeYield="auto" buildId="" bundle="./trading.strategy.Main.sab" checkpointDirectory="/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/data/ckpt" dataDirectory="/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/data" name="trading.strategy::Main" outputDirectory="BuildConfig" productVersion="4.2.6.0" standaloneApplicationDirectory="toolkits/NaiveTrading" version="1.0.0">
+    <libraries/>
+    <hostpools>
+      <hostpool index="0" membershipMode="shared" name="$default"/>
+    </hostpools>
+    <tupleTypes>
+      <tupleType index="0">
+        <attribute name="ticker" type="rstring"/>
+        <attribute name="date" type="rstring"/>
+        <attribute name="time" type="rstring"/>
+        <attribute name="askprice" type="float64"/>
+        <tuple>
+          <tt:attr name="ticker" type="rstring"/>
+          <tt:attr name="date" type="rstring"/>
+          <tt:attr name="time" type="rstring"/>
+          <tt:attr name="askprice" type="float64"/>
+        </tuple>
+      </tupleType>
+      <tupleType index="1">
+        <attribute name="price" type="float64"/>
+        <attribute name="strategy" type="int32"/>
+        <attribute name="revenue" type="float64"/>
+        <tuple>
+          <tt:attr name="price" type="float64"/>
+          <tt:attr name="strategy" type="int32"/>
+          <tt:attr name="revenue" type="float64"/>
+        </tuple>
+      </tupleType>
+    </tupleTypes>
+    <primitiveOperDefinitions>
+      <primitiveOperDefinition index="0" kind="spl.adapter::FileSource" runtimeType="SPL_CPlusPlus" toolkitIndex="1">
+        <customMetricIndicies>
+          <customMetricIndex>0</customMetricIndex>
+          <customMetricIndex>1</customMetricIndex>
+        </customMetricIndicies>
+      </primitiveOperDefinition>
+      <primitiveOperDefinition index="1" kind="spl.utility::Custom" runtimeType="SPL_CPlusPlus" toolkitIndex="1"/>
+      <primitiveOperDefinition index="2" kind="trading.strategy::StrategyMain" runtimeType="SPL_CPlusPlus" toolkitIndex="0"/>
+      <primitiveOperDefinition index="3" kind="trading.strategy::ComputeRevenue" runtimeType="SPL_CPlusPlus" toolkitIndex="0"/>
+      <primitiveOperDefinition index="4" kind="spl.adapter::FileSink" runtimeType="SPL_CPlusPlus" toolkitIndex="1">
+        <customMetricIndicies>
+          <customMetricIndex>2</customMetricIndex>
+          <customMetricIndex>3</customMetricIndex>
+        </customMetricIndicies>
+      </primitiveOperDefinition>
+    </primitiveOperDefinitions>
+    <composites>
+      <sourceUris>
+        <uri index="0" path="file:///homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/trading.strategy/Main.spl"/>
+      </sourceUris>
+      <compositeOperDefinitions>
+        <compositeOperDefinition endLine="36" index="0" kind="trading.strategy::Main" numberOfInputPorts="0" numberOfOutputPorts="0" sourceIndex="0" startLine="3" toolkitIndex="0">
+          <description>trading.strategy::Main Composite</description>
+        </compositeOperDefinition>
+      </compositeOperDefinitions>
+      <compositeOperInstances>
+        <compositeOperInstance definitionIndex="0" endLine="36" index="6" name="trading.strategy::Main" sourceIndex="0" startLine="3">
+          <primitiveOperInstance definitionIndex="0" endLine="11" index="0" name="TradeQuoteSrc" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="5">
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="TradeQuotesFiltered" streamName="TradeQuotesFiltered" transport="TCP" tupleTypeIndex="0" viewable="true">
+                <connections>
+                  <connection operIndex="1" operName="InStream" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="&quot;trades.csv&quot;"/>
+            </runtimeConstants>
+            <sharedObject class="TradeQuoteSrc">
+              <wrapper>none</wrapper>
+              <uri>bin/TradeQuoteSrc.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="1" endLine="19" index="1" name="InStream" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="13">
+            <splAnnotation internal="true" tag="logicClause">
+              <value key="hasState" type="boolean">false</value>
+              <value key="hasOnProcess" type="boolean">false</value>
+              <value key="hasOnTuple" type="boolean">true</value>
+              <value key="hasOnPunct" type="boolean">false</value>
+            </splAnnotation>
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="TradeQuotesFiltered" transport="TCP" tupleTypeIndex="0">
+                <connections>
+                  <connection operIndex="0" operName="TradeQuoteSrc" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="InStream" streamName="InStream" transport="TCP" tupleTypeIndex="1" viewable="true">
+                <connections>
+                  <connection operIndex="2" operName="Strategy" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="-1"/>
+              <runtimeConstant name="lit$1" value="0"/>
+              <runtimeConstant name="lit$2" value="0"/>
+            </runtimeConstants>
+            <sharedObject class="InStream">
+              <wrapper>none</wrapper>
+              <uri>bin/InStream.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="2" endLine="22" index="2" name="Strategy" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="false" sourceIndex="0" startLine="21">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="InStream" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="1" operName="InStream" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+              <port encoding="LE" index="1" isMutable="true" name="Result" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="3" operName="Result" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="Strategy" streamName="Strategy" transport="TCP" tupleTypeIndex="1" viewable="true">
+                <connections>
+                  <connection operIndex="3" operName="Result" portIndex="0" portKind="input"/>
+                  <connection operIndex="5" operName="StrategyWriter" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants/>
+            <sharedObject class="Strategy">
+              <wrapper>none</wrapper>
+              <uri>bin/Strategy.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="3" endLine="25" index="3" name="Result" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="false" sourceIndex="0" startLine="24">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="Strategy" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="2" operName="Strategy" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <outputPorts>
+              <port encoding="LE" index="0" isMutable="true" name="Result" streamName="Result" transport="TCP" tupleTypeIndex="1" viewable="true">
+                <connections>
+                  <connection operIndex="2" operName="Strategy" portIndex="1" portKind="input"/>
+                  <connection operIndex="4" operName="PrintHello" portIndex="0" portKind="input"/>
+                </connections>
+              </port>
+            </outputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants/>
+            <sharedObject class="Result">
+              <wrapper>none</wrapper>
+              <uri>bin/Result.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="4" endLine="30" index="4" name="PrintHello" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="27">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="Result" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="3" operName="Result" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="&quot;result.txt&quot;"/>
+            </runtimeConstants>
+            <sharedObject class="PrintHello">
+              <wrapper>none</wrapper>
+              <uri>bin/PrintHello.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+          <primitiveOperInstance definitionIndex="4" endLine="35" index="5" name="StrategyWriter" optimized="true" relocatable="true" restartable="true" singleThreadedOnOutputs="true" sourceIndex="0" startLine="32">
+            <inputPorts>
+              <port encoding="LE" index="0" isMutable="false" name="Strategy" transport="TCP" tupleTypeIndex="1">
+                <connections>
+                  <connection operIndex="2" operName="Strategy" portIndex="0" portKind="output"/>
+                </connections>
+              </port>
+            </inputPorts>
+            <envVars>
+              <envVar name="STREAMS_JAVA_HOME" value="/opt/ibm/java-x86_64-80"/>
+            </envVars>
+            <resources>
+              <poolLocation poolIndex="0"/>
+            </resources>
+            <runtimeConstants>
+              <runtimeConstant name="lit$0" value="&quot;strategyREsult.txt&quot;"/>
+            </runtimeConstants>
+            <sharedObject class="PrintHello">
+              <wrapper>none</wrapper>
+              <uri>bin/PrintHello.so</uri>
+            </sharedObject>
+            <tracing level="error"/>
+          </primitiveOperInstance>
+        </compositeOperInstance>
+      </compositeOperInstances>
+    </composites>
+    <toolkits>
+      <toolkit index="0" name="NaiveTrading" uri="file:///homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading" version="1.0.0"/>
+      <toolkit index="1" name="spl" uri="file:///homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl" version="1.4.0"/>
+    </toolkits>
+    <customMetrics>
+      <customMetric index="0" kind="Counter" name="nFilesOpened">
+        <description>The number of files opened by the `FileSource` operator.</description>
+      </customMetric>
+      <customMetric index="1" kind="Counter" name="nInvalidTuples">
+        <description>The number of tuples that failed to read correctly in csv or txt format.</description>
+      </customMetric>
+      <customMetric index="2" kind="Counter" name="nFilesOpened">
+        <description>The number of files opened by the `FileSink` operator.</description>
+      </customMetric>
+      <customMetric index="3" kind="Counter" name="nTupleWriteErrors">
+        <description>
+ The number of tuple writes that had an error on the file stream after the write completed. 
+Due to buffering, write failures might not be detected immediately. 
+You can use `param flush : 1u;` to ensure quicker detection, but with a (possibly large) performance penalty. 
+After a failure is detected, all future writes fail unless the error condition is cleared or the file is closed. 
+
+For more information, see the **writeFailureAction** parameter.
+</description>
+      </customMetric>
+    </customMetrics>
+  </splApplication>
+
+</applicationSet>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<operatorInstanceModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/operator/instance" xmlns:an="http://www.ibm.com/xmlns/prod/streams/spl/annotation" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <context>
+    <kind>spl.adapter::FileSource</kind>
+    <class>FileSrc</class>
+    <operatorModelDirectory>/homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl/spl/adapter/FileSource</operatorModelDirectory>
+    <applicationDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading</applicationDirectory>
+    <dataDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/data</dataDirectory>
+    <outputDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/output/trading.strategy.Main/BuildConfig</outputDirectory>
+    <toolkits>
+      <toolkit isCurrentToolkit="false">
+        <name>NaiveTrading</name>
+        <rootDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading</rootDirectory>
+        <index>0</index>
+      </toolkit>
+      <toolkit isCurrentToolkit="true">
+        <name>spl</name>
+        <rootDirectory>/homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl</rootDirectory>
+        <index>1</index>
+      </toolkit>
+    </toolkits>
+    <optimized>true</optimized>
+    <verbose>false</verbose>
+    <networkByteOrdering>false</networkByteOrdering>
+    <codeBeautification>false</codeBeautification>
+    <includes>
+      <include>"../type/BeJwrMUwzLSjKTE4FABALANU.h"</include>
+    </includes>
+    <stateVariables/>
+    <runtimeConstants/>
+    <sourceLocation>
+      <file>trading.strategy/Main.spl</file>
+      <line>5</line>
+      <column>3</column>
+    </sourceLocation>
+    <productVersion>4.2.6.0</productVersion>
+    <checkpointKind>none</checkpointKind>
+  </context>
+
+  <parameters/>
+
+  <inputPorts/>
+
+  <outputPorts>
+    <outputPort>
+      <index>0</index>
+      <tupleCppName>oport$0</tupleCppName>
+      <tupleCppType>SPL::BeJwrMUwzLSjKTE4FABALANU</tupleCppType>
+      <tupleSPLType>tuple&lt;float32 price&gt;</tupleSPLType>
+      <facade>false</facade>
+      <mutationAllowed>true</mutationAllowed>
+      <sourceLocation>
+        <file>trading.strategy/Main.spl</file>
+        <line>5</line>
+        <column>3</column>
+      </sourceLocation>
+      <attributes>
+        <attribute>
+          <name>price</name>
+          <cppType>SPL::float32</cppType>
+          <splType>float32</splType>
+        </attribute>
+      </attributes>
+      <tuple>
+        <tt:attr name="price" type="float32"/>
+      </tuple>
+      <finalPunctuationPortScope/>
+    </outputPort>
+  </outputPorts>
+
+</operatorInstanceModel>

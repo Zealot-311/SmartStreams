@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<operatorInstanceModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/operator/instance" xmlns:an="http://www.ibm.com/xmlns/prod/streams/spl/annotation" xmlns:tt="http://www.ibm.com/xmlns/prod/streams/spl/tupleType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <context>
+    <kind>spl.adapter::FileSink</kind>
+    <class>PrintHello</class>
+    <operatorModelDirectory>/homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl/spl/adapter/FileSink</operatorModelDirectory>
+    <applicationDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading</applicationDirectory>
+    <dataDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/data</dataDirectory>
+    <outputDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading/output/trading.strategy.Main/BuildConfig</outputDirectory>
+    <toolkits>
+      <toolkit isCurrentToolkit="false">
+        <name>NaiveTrading</name>
+        <rootDirectory>/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading</rootDirectory>
+        <index>0</index>
+      </toolkit>
+      <toolkit isCurrentToolkit="true">
+        <name>spl</name>
+        <rootDirectory>/homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl</rootDirectory>
+        <index>1</index>
+      </toolkit>
+    </toolkits>
+    <optimized>true</optimized>
+    <verbose>false</verbose>
+    <networkByteOrdering>false</networkByteOrdering>
+    <codeBeautification>false</codeBeautification>
+    <includes>
+      <include>"../type/BeJwrMXYzLSjKTE7NtCguKUosSU2vdDMvSi1LzStNBQCWwwrB.h"</include>
+    </includes>
+    <stateVariables/>
+    <runtimeConstants>
+      <runtimeConstant>
+        <name>lit$0</name>
+        <cppType>SPL::rstring</cppType>
+        <splType>rstring</splType>
+        <value>"result.txt"</value>
+      </runtimeConstant>
+    </runtimeConstants>
+    <sourceLocation>
+      <file>trading.strategy/Main.spl</file>
+      <line>24</line>
+      <column>3</column>
+    </sourceLocation>
+    <productVersion>4.2.6.0</productVersion>
+    <checkpointKind>none</checkpointKind>
+  </context>
+
+  <parameters>
+    <parameter>
+      <name>file</name>
+      <values>
+        <value>
+          <cppType>SPL::rstring</cppType>
+          <splType>rstring</splType>
+          <hasRuntimeConstant>true</hasRuntimeConstant>
+          <cppExpression>lit$0</cppExpression>
+          <splExpression>"result.txt"</splExpression>
+          <hasFunctions>false</hasFunctions>
+          <hasSideEffects>false</hasSideEffects>
+          <readsState>false</readsState>
+          <hasStreamAttributes>false</hasStreamAttributes>
+          <parameterExpressionMode>Expression</parameterExpressionMode>
+          <sourceLocation>
+            <file>trading.strategy/Main.spl</file>
+            <line>26</line>
+            <column>11</column>
+          </sourceLocation>
+        </value>
+      </values>
+      <sourceLocation>
+        <file>trading.strategy/Main.spl</file>
+        <line>26</line>
+        <column>5</column>
+      </sourceLocation>
+    </parameter>
+  </parameters>
+
+  <inputPorts>
+    <inputPort>
+      <index>0</index>
+      <tupleCppName>iport$0</tupleCppName>
+      <tupleCppType>SPL::BeJwrMXYzLSjKTE7NtCguKUosSU2vdDMvSi1LzStNBQCWwwrB</tupleCppType>
+      <tupleSPLType>tuple&lt;float64 price,int32 strategy,float64 revenue&gt;</tupleSPLType>
+      <facade>false</facade>
+      <mutationAllowed>false</mutationAllowed>
+      <sourceLocation>
+        <file>trading.strategy/Main.spl</file>
+        <line>24</line>
+        <column>31</column>
+      </sourceLocation>
+      <attributes>
+        <attribute>
+          <name>price</name>
+          <cppType>SPL::float64</cppType>
+          <splType>float64</splType>
+        </attribute>
+        <attribute>
+          <name>strategy</name>
+          <cppType>SPL::int32</cppType>
+          <splType>int32</splType>
+        </attribute>
+        <attribute>
+          <name>revenue</name>
+          <cppType>SPL::float64</cppType>
+          <splType>float64</splType>
+        </attribute>
+      </attributes>
+      <tuple>
+        <tt:attr name="price" type="float64"/>
+        <tt:attr name="strategy" type="int32"/>
+        <tt:attr name="revenue" type="float64"/>
+      </tuple>
+    </inputPort>
+  </inputPorts>
+
+  <outputPorts/>
+
+</operatorInstanceModel>

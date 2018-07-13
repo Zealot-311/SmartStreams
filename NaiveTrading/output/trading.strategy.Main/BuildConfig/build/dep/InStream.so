@@ -1,0 +1,4 @@
+	@$(CXX_LN) $(SPL_CXXFLAGS) -o bin/InStream.so -fPIC -shared $(SOInStream) $(SPL_LDFLAGS)\
+	    build/operator/InStream.o \
+	    build/type/BeJwrMSk2K8lMzk4tKjZJSSxJLTYpycxNdbNILM4uKMpMTgUAx6EMA_1.o \
+	    build/type/BeJwrMXYzLSjKTE7NtCguKUosSU2vdDMvSi1LzStNBQCWwwrB.o 

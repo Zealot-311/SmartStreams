@@ -1,0 +1,123 @@
+/* Additional includes go here */
+
+<%SPL::CodeGen::implementationPrologue($model);%>
+
+#include <fstream>
+
+using namespace std;
+
+// Constructor
+MY_OPERATOR::MY_OPERATOR()
+{
+    // Initialization code goes here
+}
+
+// Destructor
+MY_OPERATOR::~MY_OPERATOR() 
+{
+    // Finalization code goes here
+}
+
+// Notify port readiness
+void MY_OPERATOR::allPortsReady() 
+{
+    // Notifies that all ports are ready. No tuples should be submitted before
+    // this. Source operators can use this method to spawn threads.
+
+    /*
+      createThreads(1); // Create source thread
+    */
+}
+ 
+// Notify pending shutdown
+void MY_OPERATOR::prepareToShutdown() 
+{
+    // This is an asynchronous call
+}
+
+// Processing for source and threaded operators   
+void MY_OPERATOR::process(uint32_t idx)
+{
+    // A typical implementation will loop until shutdown
+    /*
+      while(!getPE().getShutdownRequested()) {
+          // do work ...
+      }
+    */
+}
+
+// Tuple processing for mutating ports 
+void MY_OPERATOR::process(Tuple & tuple, uint32_t port)
+{
+    // Sample submit code
+    /* 
+      submit(otuple, 0); // submit to output port 0
+    */
+	
+	int32 strategy = tuple.getAttributeValue("strategy");
+	float64 price = tuple.getAttributeValue("price");
+	
+	ifstream ifs("purchaseHistory.txt");
+	
+	int32 holding;
+	ifs>>holding;
+	
+	float64 buy_price;
+	ifs>>buy_price;
+	
+	ifs.close();
+	
+	if(holding == -1) {
+		if(strategy == -1) {
+			return;
+		}
+		
+		holding = 1;
+		ofstream ofs("purchaseHistory.txt");
+		ofs<<holding<<" "<<price;
+	}
+	
+	if(strategy == 1) {
+		return;
+	}
+	
+	holding = -1;
+	ofstream ofs("purchaseHistory.txt");
+	ofs<<holding<<" "<<price;
+	
+	float64 revenue = price - buy_price;
+	
+	OPort0Type otuple;
+	otuple.assignFrom(tuple, false);
+	
+	ValueHandle handle0 = otuple.getAttributeValue("revenue");
+	float64& r = handle0;
+	r = revenue;
+	
+	submit(otuple, 0);
+}
+
+// Tuple processing for non-mutating ports
+void MY_OPERATOR::process(Tuple const & tuple, uint32_t port)
+{
+    // Sample submit code
+    /* 
+      OPort0Type otuple;
+      submit(otuple, 0); // submit to output port 0
+    */
+}
+
+// Punctuation processing
+void MY_OPERATOR::process(Punctuation const & punct, uint32_t port)
+{
+    /*
+      if(punct==Punctuation::WindowMarker) {
+        // ...;
+      } else if(punct==Punctuation::FinalMarker) {
+        // ...;
+      }
+    */
+}
+
+<%SPL::CodeGen::implementationEpilogue($model);%>
+

@@ -1,0 +1,3 @@
+	@$(CXX_LN) $(SPL_CXXFLAGS) -o bin/Hello.so -fPIC -shared $(SOHello) $(SPL_LDFLAGS)\
+	    build/operator/Hello.o \
+	    build/type/BeJwrMUozLSjKTE7NtCguKUosSU2vBABHEgdp.o 

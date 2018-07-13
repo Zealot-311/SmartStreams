@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<bundleInfoModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/bundleInfoModel" adlFile="trading.strategy.Main.adl" applicationDirectory="NaiveTrading" buildDate="" buildId="" bundleVersion="4200" executionMode="distributed" outputDirectory="BuildConfig" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <toolkit compileRoot="/homes/hny1/Yan.Tian/IStreamInstallTest/InfoSphere_Streams/4.2.6.0.20180604023502/toolkits/spl" name="spl" version="1.4.0">
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+  <toolkit compileRoot="/homes/hny1/Yan.Tian/StreamsDevelopment/NaiveTrading" name="NaiveTrading" version="1.0.0">
+    <file name="toolkit.xml"/>
+  </toolkit>
+
+</bundleInfoModel>

@@ -1,0 +1,3 @@
+	@$(CXX_LN) $(SPL_CXXFLAGS) -o bin/TradeQuotesFiltered.so -fPIC -shared $(SOTradeQuotesFiltered) $(SPL_LDFLAGS)\
+	    build/operator/TradeQuotesFiltered.o \
+	    build/type/BeJwrMSk2K8lMzk4tKjZJSSxJLTYpycxNdbNILM4uKMpMTgUAx6EMA_1.o 

@@ -1,0 +1,3 @@
+	@$(CXX_LN) $(SPL_CXXFLAGS) -o bin/Strategy.so -fPIC -shared $(SOStrategy) $(SPL_LDFLAGS)\
+	    build/operator/Strategy.o \
+	    build/type/BeJwrMXYzLSjKTE7NtCguKUosSU2vdDMvSi1LzStNBQCWwwrB.o 

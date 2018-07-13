@@ -1,0 +1,37 @@
+namespace trading.strategy;
+
+composite Main {
+	graph
+		(stream<rstring ticker, rstring date, rstring time, float64 askprice>
+			TradeQuotesFiltered) as TradeQuoteSrc = FileSource()
+		{
+			param
+				file : "trades.csv" ;
+				format : csv ;
+		}
+	
+		stream<float64 price, int32 strategy, float64 revenue> InStream = Custom(TradeQuotesFiltered){
+			logic
+				onTuple TradeQuotesFiltered:
+				{
+					submit({price = TradeQuotesFiltered.askprice, strategy = -1, revenue = 0.0}, InStream);
+				}
+		}
+		
+		stream<InStream> Strategy = StrategyMain(InStream; Result) {
+		}
+		
+		stream<InStream> Result = ComputeRevenue(Strategy) {
+		}
+		
+		() as PrintHello = FileSink(Result) {
+			param
+				file: "result.txt";
+		}
+		
+		() as StrategyWriter = FileSink(Strategy) {
+			param
+				file: "strategyREsult.txt";
+		}
+}
+

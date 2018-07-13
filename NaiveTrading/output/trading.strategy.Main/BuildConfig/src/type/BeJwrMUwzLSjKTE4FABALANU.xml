@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<tupleModel xmlns="http://www.ibm.com/xmlns/prod/streams/spl/tuple" class="BeJwrMUwzLSjKTE4FABALANU" equalitySupported="true" facade="false" splType="tuple&lt;float32 price>" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <headers/>
+
+  <attributes>
+    <attribute>
+      <name>price</name>
+      <cppType>SPL::float32</cppType>
+      <splType>float32</splType>
+    </attribute>
+  </attributes>
+
+</tupleModel>
