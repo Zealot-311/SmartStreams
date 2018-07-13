@@ -20,7 +20,7 @@ std::vector<std::vector<T> > randomMatrix(int r, int col)
     std::vector<std::vector<T> > randomMatrix;
     double seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator (seed);
-    std::normal_distribution<T> distribution (-1.0,1.0);
+    std::normal_distribution<double> distribution (-1.0,1.0);
     
     std::vector<T> newrow(col, 0);
     
