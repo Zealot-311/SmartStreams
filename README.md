@@ -1,4 +1,4 @@
-###About Our Product###
+#About Our Product#
 
 IBM streams is capable of processing immense amounts of data and allows the use of ML models to be used. However, these models cannot be trained or updated. Our proposed solution allows for neural networks to be created and trained in real time using IBM streams as a backbone.
 
@@ -9,6 +9,6 @@ Our MVP is a simple reinforcement learning agent built upon our API, this agent 
 
 By integrating our API with IBM Streams Analytics our customers can build smarter tools for their businesses, especially for those that require reinforcement learning and real time decision making. Potential applications includes weather analytics, healthcare, financial markets, video and audio analytics, and more!
 
-##How to Use Our API##
+#How to Use Our API#
 
 To use our API, simply include the .cpp/.h files into your project's path and create customized operators that utilizes the API. A simple example could be found in the sample directory.
