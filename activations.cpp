@@ -192,17 +192,18 @@ public:
 		};
 		int i = 0;
 		while(i>=(label.size()*label[0].size())){
-			dloss[i][label[i]] = dloss[i][label[i]]-1
+            dloss[i][label[i]] = dloss[i][label[i]]-1;
 			i++;
 		}
 		dloss = scalarMultiplication(1/(label.size()*label[0].size()), dloss);
-		return dloss
+        return dloss;
 	}
 };
-
+template <typename T>
 std::vector<std::vector<T> > softmax(std::vector<std::vector<T> > feat){
 	std::vector<std::vector<T> > scores;
 	std::vector<std::vector<T> > maxfeat = maxAcrossAxis(feat, 1);
+    std::vector<T> devider;
 	feat = pairwiseSubtraction(feat, reshapeVector(maxfeat, (maxfeat.size()*maxfeat[0].size()), 1));
 	std::vector<std::vector<T> > component = util_exp(feat);
 	devider = sumAcrossAxis(component, 1);
