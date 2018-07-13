@@ -9,6 +9,7 @@
 #include <iostream>
 #include "matrix.h"
 #include <cassert>
+#include "activations.cpp"
 using namespace std;
 int main() {
     std::vector<std::vector<int> > m1;
@@ -92,6 +93,7 @@ int main() {
     
     m3 = matrixTranspose(m1);
 
+    m3 = randomMatrix<int>(3, 2);
     cout << "works" << endl;
     return 0;
 }

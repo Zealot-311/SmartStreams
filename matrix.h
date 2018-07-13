@@ -8,10 +8,32 @@
 
 #include <vector>
 #include <cmath>
+#include <random>
+#include <chrono>
 #ifndef matrixMultiplication_h
 #define matrixMultiplication_h
 
 
+template <typename T>
+std::vector<std::vector<T> > randomMatrix(int r, int col)
+{
+    std::vector<std::vector<T> > randomMatrix;
+    double seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+    std::normal_distribution<T> distribution (-1.0,1.0);
+    
+    std::vector<T> newrow(col, 0);
+    
+    for (int i=0; i< r; i++)
+    {
+        for (int j=0; j<col; j++)
+        {
+            newrow[j] = distribution(generator);
+        }
+        randomMatrix.push_back(newrow);
+    }
+    return randomMatrix;
+}
 
 template <typename T>
 std::vector<std::vector<T> > matrixMultiplication(std::vector<std::vector<T> > a, std::vector<std::vector<T> > b)
@@ -165,15 +187,16 @@ std::vector<std::vector<T> > pairwiseMultiplication(std::vector<std::vector<T> >
 }
 
 template <typename T>
-std::vector<std::vector<T> > matrixSigmoid(std::vector<std::vector<T> > a, T power)
+std::vector<std::vector<T> > matrixSigmoid(std::vector<std::vector<T> > a)
 {
     //flipping the sign
-    power = power - power - power;
     for (int i=0; i<a.getRows(); i++)
     {
         for (int j=0; j<a.getColumns(); j++)
         {
-            a.data[i][j] = 1 / (1 + std::exp(power));
+            T x = a.data[i][j];
+            x = x - x -x;
+            a.data[i][j] = 1 / (1 + std::exp(x));
         }
     }
 }
