@@ -13,6 +13,17 @@
 #ifndef matrixMultiplication_h
 #define matrixMultiplication_h
 
+template <typename T>
+std::vector<std::vector<T> > matrixNaturalLog(std::vector<std::vector<T> > a)
+{
+    for (unsigned i =0; i< a.size(); i++)
+    {
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            a[i][j] = log(a[i][j]);
+        }
+    }
+}
 
 template <typename T>
 std::vector<std::vector<T> > randomMatrix(int r, int col)
@@ -20,7 +31,7 @@ std::vector<std::vector<T> > randomMatrix(int r, int col)
     std::vector<std::vector<T> > randomMatrix;
     double seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine generator (seed);
-    std::normal_distribution<double> distribution (-1.0,1.0);
+    std::normal_distribution<T> distribution (0,1.0);
     
     std::vector<T> newrow(col, 0);
     
@@ -270,5 +281,48 @@ std::vector<std::vector<T> >matrixTranspose(std::vector<std::vector<T> > a)
         }
     }
     return transposedVec;
+}
+template <typename T>
+T columnSum(std::vector<std::vector<T> > a, int col)
+{
+    T sum = 0;
+    for (unsigned i=0; i<a.size(); i++)
+    {
+        sum += a[i][col];
+    }
+    return sum;
+}
+template <typename T>
+std::vector<T> productAcrossAxis(std::vector<std::vector<T> > a, int axis)
+{
+    std::vector<T> summedVector;
+    if (axis ==1)
+    {
+        //rows stay the same
+        for (unsigned i=0; i<a.size(); i++)
+        {
+            T val=0;
+            for (unsigned j=0; j<a[0].size(); j++)
+            {
+                val *= a[i][j];
+            }
+            summedVector.push_back(val);
+        }
+    }
+    else
+    {
+        //columns stay the same
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            T val=0;
+            for (unsigned i=0; i<a.size(); i++)
+            {
+                val *= a[i][j];
+            }
+            summedVector.push_back(val);
+        }
+        
+    }
+    return summedVector;
 }
 #endif /* matrixMultiplication_h */
