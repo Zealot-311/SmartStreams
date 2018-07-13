@@ -14,6 +14,18 @@
 #define matrixMultiplication_h
 
 template <typename T>
+std::vector<std::vector<T> > matrixExp(std::vector<std::vector<T> > a)
+{
+    for (unsigned i =0; i< a.size(); i++)
+    {
+        for (unsigned j=0; j<a[0].size(); j++)
+        {
+            a[i][j] = std::exp(a[i][j]);
+        }
+    }
+}
+
+template <typename T>
 std::vector<T> maxAcrossAxis(std::vector<std::vector<T> > a, int axis)
 {
     std::vector<T> summedVector;
