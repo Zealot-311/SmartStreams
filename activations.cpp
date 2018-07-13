@@ -31,7 +31,7 @@ public:
         std::vector<std::vector<T> > zeroVector(1, std::vector<T> (input_dim,0));
         
 		params.insert(std::pair<std::string, std::vector<std::vector<T> > >(w_name, scalarMultiplication(init_scale, randomMatrix<T>(input_dim, output_dim))));
-        params.insert(std::pair<std::string, std::vector<std::vector<T> >>(b_name,  zeroVector));
+        params.insert(std::pair<std::string, std::vector<std::vector<T> > >(b_name,  zeroVector));
 		//grads.insert(std::pair<std::string, std::vector<std::vector<T> > >(w_name, NULL));
 		//grads.insert(std::pair<std::string, std::vector<std::vector<T> > >(b_name, NULL));
 		meta.clear();

@@ -92,8 +92,8 @@ int main() {
     testvec = sumAcrossAxis(m1, 1);
     
     m3 = matrixTranspose(m1);
-
-    m3 = randomMatrix<int>(3, 2);
+    
+    randomMatrix<float>(3, 2);
     cout << "works" << endl;
     return 0;
 }
