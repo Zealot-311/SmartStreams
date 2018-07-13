@@ -153,4 +153,55 @@ public:
 	};
 };
 
+template <typename T>
+class cross_entropy
+{
+public:
+	cross_entropy();
+	~cross_entropy();
+	bool dim_average;
+	std::vector<std::vector<T> > dloss;
+	std::vector<std::vector<T> > label;
 
+	void init(bool dim_average = true){
+		dim_average = dim_average;
+	};
+	std::vector<std::vector<T> > forward(std::vector<std::vector<T> > feat, std::vector<std::vector<T> > label){
+		std::vector<std::vector<T> > scores = softmax(feat);
+		float loss;
+		float sum = 0;
+		int i = 0;
+		while(i>=(label.size()*label[0].size())){
+			sum += util_log(scores)[i][label[i]];
+			i++;
+		}
+		loss = -sum/(label.size()*label[0].size());
+		dloss = scores;
+		label = label;
+		return loss;
+	};
+
+	std::vector<std::vector<T> > backward(){
+		try {
+			if (dloss.size() == 0){
+				throw 1;
+			};
+		}
+		catch(int i){
+            std::cout << "No forward function called before for this module!";
+		};
+		int i = 0;
+		while(i>=(label.size()*label[0].size())){
+			dloss[i][label[i]] = dloss[i][label[i]]-1
+			i++;
+		}
+		dloss = scalarMultiplication(1/(label.size()*label[0].size()), dloss);
+		return dloss
+	}
+};
+
+std::vector<std::vector<T> > softmax(std::vector<std::vector<T> > feat){
+	std::vector<std::vector<T> > scores;
+	float maxfeat = util_amax(feat, 1);
+	feat = matrixSubtraction()
+}
