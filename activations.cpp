@@ -202,6 +202,10 @@ public:
 
 std::vector<std::vector<T> > softmax(std::vector<std::vector<T> > feat){
 	std::vector<std::vector<T> > scores;
-	float maxfeat = util_amax(feat, 1);
-	feat = matrixSubtraction()
+	std::vector<std::vector<T> > maxfeat = maxAcrossAxis(feat, 1);
+	feat = pairwiseSubtraction(feat, reshapeVector(maxfeat, (maxfeat.size()*maxfeat[0].size()), 1));
+	std::vector<std::vector<T> > component = util_exp(feat);
+	devider = sumAcrossAxis(component, 1);
+	scores = pairwiseDivision(component, reshapeVector(devider,(devider.size()*devider[0].size()),1));
+	return scores;
 }
